@@ -1,4 +1,4 @@
-name: Test and Build
+name: Run Tests
 
 on:
   push:
@@ -7,16 +7,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 16, 18 , 20 ]
+
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+
+      - name: Use Node.js 20
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm test
-      - name: Build (optional)
-        run: npm run build  # Add your build command if needed
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
